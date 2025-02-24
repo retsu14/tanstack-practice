@@ -23,7 +23,6 @@ type User = {
 
 const Table = () => {
   const [user, setUser] = useState<User[]>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -41,11 +40,9 @@ const Table = () => {
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     state: {
-      sorting,
       globalFilter,
       pagination,
     },
-    onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
     onPaginationChange: setPagination,
     getPaginationRowModel: getPaginationRowModel(),
