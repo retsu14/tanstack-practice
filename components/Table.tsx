@@ -9,6 +9,7 @@ import {
   flexRender,
   SortingState,
   PaginationState,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import DATA from "@/lib/userData";
 import columns from "@/lib/table";
@@ -47,16 +48,9 @@ const Table = () => {
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
     onPaginationChange: setPagination,
+    getPaginationRowModel: getPaginationRowModel(),
     columnResizeMode: "onChange",
   });
-
-  const handleSort = (columnId: string) => {
-    const newSorting =
-      sorting[0]?.id === columnId
-        ? [{ id: columnId, desc: !sorting[0].desc }]
-        : [{ id: columnId, desc: false }];
-    setSorting(newSorting);
-  };
 
   return (
     <div>
@@ -79,12 +73,15 @@ const Table = () => {
                 className="border-black border-[1px] p-2 relative overflow-hidden overflow-ellipsis"
                 style={{ width: head.getSize() }}
               >
-                <span
-                  className="cursor-pointer"
-                  onClick={() => handleSort(head.id)}
-                >
-                  {head.column.columnDef.header}
-                </span>
+                {head.column.columnDef.header}
+                {head.column.getCanSort() && (
+                  <div
+                    onClick={head.column.getToggleSortingHandler()}
+                    className="cursor-pointer"
+                  >
+                    sort
+                  </div>
+                )}
                 <div
                   onMouseDown={head.getResizeHandler()}
                   onTouchStart={head.getResizeHandler()}

@@ -10,6 +10,7 @@ const columns = [
     header: "Last Name",
     cell: (props) => <p>{props.getValue()}</p>,
     isResizable: true,
+    
   },
   {
     accessorKey: "age",
